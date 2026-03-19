@@ -96,6 +96,11 @@
             box-shadow:0 2px 6px rgba(0,0,0,0.3);
         }
 
+        @keyframes scroll-left {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
         @media (max-width:600px) {
             .download img { max-width:90%; }
             .logo { width:35px; height:35px; }
@@ -132,10 +137,18 @@
 <div id="tracking" class="section" style="position:relative;">
     <div id="map"></div>
     <div id="panel">లోడింగ్...</div>
-    <div id="tracking-ticker" style="position:absolute;bottom:0;left:0;width:100%;background:#8B0000;color:white;z-index:10;overflow:hidden;height:36px;line-height:36px;">
-        <marquee behavior="scroll" direction="left" scrollamount="4" style="margin:0;font-size:14px;font-weight:bold;">
+    <div id="tracking-ticker" style="position:absolute;bottom:0;left:0;width:100%;background:#8B0000;color:white;z-index:10;overflow:hidden;height:36px;display:flex;align-items:center;">
+        <p style="white-space:nowrap;animation:scroll-left 12s linear infinite;margin:0;font-size:14px;font-weight:bold;">
             📍 లైవ్ లొకేషన్ ట్రాకింగ్ రాత్రి 9 గంటల తర్వాత అందుబాటులో ఉంటుంది &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 📍 లైవ్ లొకేషన్ ట్రాకింగ్ రాత్రి 9 గంటల తర్వాత అందుబాటులో ఉంటుంది
-        </marquee>
+        </p>
+    <style>
+        #tracking-ticker p {
+            -webkit-animation: scroll-left 12s linear infinite;
+            animation: scroll-left 12s linear infinite;
+            will-change: transform;
+            -webkit-transform: translateZ(0);
+        }
+    </style>
     </div>
 </div>
 
