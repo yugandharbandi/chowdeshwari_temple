@@ -15,7 +15,6 @@
             background: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            cursor: pointer;
         }
 
         img {
@@ -38,7 +37,7 @@
     </style>
 </head>
 
-<body onclick="goToApp()">
+<body>
 
 <img src="logo.png" alt="Logo">
 
@@ -47,9 +46,10 @@
 <p>Thogata Yuvajana Sangam</p>
 
 <script>
-    function goToApp() {
+    // Auto redirect after 1 second
+    setTimeout(() => {
         window.location.href = "app.html";
-    }
+    }, 1000);
 </script>
 
 </body>
