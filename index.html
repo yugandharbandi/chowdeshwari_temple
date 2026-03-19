@@ -1,198 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>శ్రీ చౌడేశ్వరి దేవి ఆలయం - ఉగాది</title>
+    <title>Ugadi Wishes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
-        body { margin:0; font-family:Arial; background:#f5f5f5; }
-
-        header {
-            background:#8B0000;
-            color:white;
-            padding:10px;
-            display:flex;
-            align-items:center;
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            cursor: pointer;
         }
 
-        .logo {
-            width:40px;
-            height:40px;
-            border-radius:50%;
-            margin-right:10px;
-            object-fit:cover;
+        img {
+            width: 220px;
+            max-width: 80%;
+            margin-bottom: 20px;
         }
 
-        .title h2 { margin:0; font-size:16px; }
-        .title p { margin:2px 0 0; font-size:12px; }
-
-        .menu {
-            display:flex;
-            justify-content:space-around;
-            background:white;
-            padding:10px;
+        h1 {
+            margin: 10px 0;
+            font-size: 26px;
+            color: #8B0000;
         }
 
-        .menu button {
-            padding:10px;
-            border:none;
-            background:#eee;
-            border-radius:6px;
-            cursor:pointer;
-            font-size:13px;
-        }
-
-        .menu button.active {
-            background:#8B0000;
-            color:white;
-        }
-
-        .section {
-            display:none;
-            height:calc(100vh - 120px);
-        }
-
-        .active-section { display:block; }
-
-        .download {
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:flex-start;
-            padding:20px;
-            gap:15px;
-            overflow-y:auto;
-            height:100%;
-        }
-
-        .download img {
-            max-width:80%;
-            max-height:60vh;
-            object-fit:contain;
-            border-radius:12px;
-            box-shadow:0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .download a {
-            padding:12px 20px;
-            background:#8B0000;
-            color:white;
-            text-decoration:none;
-            border-radius:8px;
-        }
-
-        #map { height:100%; }
-
-        iframe { width:100%; height:100%; border:none; }
-
-        #panel {
-            position:absolute;
-            top:140px;
-            left:10px;
-            background:white;
-            padding:10px;
-            border-radius:8px;
-            font-size:13px;
-            box-shadow:0 2px 6px rgba(0,0,0,0.3);
-        }
-
-        @media (max-width:600px) {
-            .download img { max-width:90%; }
-            .logo { width:35px; height:35px; }
+        p {
+            margin: 0;
+            font-size: 16px;
+            color: #555;
         }
     </style>
 </head>
 
-<body>
+<body onclick="goToApp()">
 
-<header>
-    <img class="logo" src="goddess.jpg">
-    <div class="title">
-        <h2>శ్రీ చౌడేశ్వరి దేవి ఆలయం</h2>
-        <p>మదనపల్లె - ఉగాది ఊరేగింపు</p>
-    </div>
-</header>
+<img src="logo.png" alt="Logo">
 
-<div class="menu">
-    <button onclick="showSection('photo')" class="active">📥 ఫోటో</button>
-    <button onclick="showSection('tracking')">📍 ట్రాకింగ్</button>
-    <button onclick="showSection('live')">📺 ప్రత్యక్ష ప్రసారం</button>
-</div>
+<h1>🌸 Happy Ugadi 🌸</h1>
 
-<!-- 📸 PHOTO -->
-<div id="photo" class="section active-section">
-    <div class="download">
-        <h3>🙏 శ్రీ చౌడేశ్వరి దేవి</h3>
-        <img src="goddess.jpg">
-        <a href="goddess.jpg" download>📥 దేవి ఫోటో డౌన్‌లోడ్</a>
-    </div>
-</div>
-
-<!-- 📍 TRACKING -->
-<div id="tracking" class="section">
-    <div id="map"></div>
-    <div id="panel">లోడింగ్...</div>
-</div>
-
-<!-- 📺 YOUTUBE -->
-<div id="live" class="section">
-    <iframe
-            src="https://www.youtube.com/embed/hnPOXuESnA8"
-            allow="autoplay"
-            allowfullscreen>
-    </iframe>
-
-    <div style="text-align:center;margin-top:10px;">
-        <a href="https://www.youtube.com/watch?v=hnPOXuESnA8" target="_blank">
-            📺 YouTube లో చూడండి
-        </a>
-    </div>
-</div>
-
-<!-- Scripts -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcmqgSYObKH6_QMm5CMdXnW73np7tRdQs"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<p>Thogata Yuvajana Sangam</p>
 
 <script>
-    function showSection(id) {
-        document.querySelectorAll(".section").forEach(s => s.classList.remove("active-section"));
-        document.getElementById(id).classList.add("active-section");
-
-        document.querySelectorAll(".menu button").forEach(b => b.classList.remove("active"));
-        event.target.classList.add("active");
+    function goToApp() {
+        window.location.href = "app.html";
     }
-
-    // ✅ YOUR FIREBASE CONFIG
-    const firebaseConfig = {
-        apiKey: "AIzaSyCNLfXc2x5I3iPYNfTmlnPOKQW2spPfdmI",
-        databaseURL: "https://ugadi-live-tracker-default-rtdb.asia-southeast1.firebasedatabase.app"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    let map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 14,
-        center: { lat: 13.5503, lng: 78.5029 }
-    });
-
-    let marker = new google.maps.Marker({ map });
-
-    db.ref("tracker/current").on("value", snap => {
-        const data = snap.val();
-        if (!data) return;
-
-        const pos = { lat: data.lat, lng: data.lng };
-
-        marker.setPosition(pos);
-        map.panTo(pos);
-
-        document.getElementById("panel").innerHTML =
-            "🚗 లైవ్ ట్రాకింగ్<br>" +
-            "Latitude: " + pos.lat.toFixed(4) +
-            "<br>Longitude: " + pos.lng.toFixed(4);
-    });
 </script>
 
 </body>
