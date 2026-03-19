@@ -36,35 +36,35 @@
         return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     }
 
-    navigator.geolocation.watchPosition((pos) => {
+    function sendLocation(lat, lng) {
         const now = Date.now();
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
-
-        // send every 5 sec
         if (now - lastSent < 5000) return;
-
-        // ignore small movement (<15m)
         if (lastLat && getDistance(lat, lng, lastLat, lastLng) < 15) return;
 
         lastSent = now;
         lastLat = lat;
         lastLng = lng;
 
-        db.ref("tracker/current").set({
-            lat,
-            lng,
-            time: now
-        });
-
+        db.ref("tracker/current").set({ lat, lng, time: now });
         console.log("Sent:", lat, lng);
+    }
 
+    // Primary: watchPosition
+    navigator.geolocation.watchPosition((pos) => {
+        sendLocation(pos.coords.latitude, pos.coords.longitude);
     }, (err) => {
         console.error(err);
         alert("Enable location permission!");
     }, {
         enableHighAccuracy: true
     });
+
+    // Fallback: poll every 10s in case watchPosition stops in background
+    setInterval(() => {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            sendLocation(pos.coords.latitude, pos.coords.longitude);
+        }, () => {}, { enableHighAccuracy: true });
+    }, 10000);
 </script>
 
 </body>
