@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ugadi Tracker Sender</title>
+</head>
+<body>
+<h3>Tracking started... Keep this page open</h3>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCNLfXc2x5I3iPYNfTmlnPOKQW2spPfdmI",
+        databaseURL: "https://ugadi-live-tracker-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    let lastSent = 0;
+    let lastLat = null;
+    let lastLng = null;
+
+    // distance calc (meters)
+    function getDistance(lat1, lng1, lat2, lng2) {
+        const R = 6371000;
+        const dLat = (lat2 - lat1) * Math.PI/180;
+        const dLng = (lng2 - lng1) * Math.PI/180;
+
+        const a = Math.sin(dLat/2)**2 +
+            Math.cos(lat1*Math.PI/180) *
+            Math.cos(lat2*Math.PI/180) *
+            Math.sin(dLng/2)**2;
+
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    }
+
+    navigator.geolocation.watchPosition((pos) => {
+        const now = Date.now();
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+
+        // send every 5 sec
+        if (now - lastSent < 5000) return;
+
+        // ignore small movement (<15m)
+        if (lastLat && getDistance(lat, lng, lastLat, lastLng) < 15) return;
+
+        lastSent = now;
+        lastLat = lat;
+        lastLng = lng;
+
+        db.ref("tracker/current").set({
+            lat,
+            lng,
+            time: now
+        });
+
+        console.log("Sent:", lat, lng);
+
+    }, (err) => {
+        console.error(err);
+        alert("Enable location permission!");
+    }, {
+        enableHighAccuracy: true
+    });
+</script>
+
+</body>
+</html>
