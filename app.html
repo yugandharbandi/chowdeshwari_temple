@@ -97,8 +97,8 @@
         }
 
         @keyframes scroll-left {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
         }
 
         @media (max-width:600px) {
@@ -141,6 +141,14 @@
         <p style="white-space:nowrap;animation:scroll-left 12s linear infinite;margin:0;font-size:14px;font-weight:bold;">
             📍 లైవ్ లొకేషన్ ట్రాకింగ్ రాత్రి 9 గంటల తర్వాత అందుబాటులో ఉంటుంది &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 📍 లైవ్ లొకేషన్ ట్రాకింగ్ రాత్రి 9 గంటల తర్వాత అందుబాటులో ఉంటుంది
         </p>
+    <style>
+        #tracking-ticker p {
+            -webkit-animation: scroll-left 12s linear infinite;
+            animation: scroll-left 12s linear infinite;
+            will-change: transform;
+            -webkit-transform: translateZ(0);
+        }
+    </style>
     </div>
 </div>
 
